@@ -119,9 +119,6 @@ namespace KarmaLympics.Migrations
                     b.Property<int>("EventId")
                         .HasColumnType("int");
 
-                    b.Property<int>("QuestId")
-                        .HasColumnType("int");
-
                     b.Property<string>("TeamName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -134,20 +131,26 @@ namespace KarmaLympics.Migrations
 
                     b.HasIndex("EventId");
 
-                    b.HasIndex("QuestId");
-
                     b.ToTable("Teams");
                 });
 
             modelBuilder.Entity("KarmaLympics.Models.TeamQuest", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("QuestId")
                         .HasColumnType("int");
 
                     b.Property<int>("TeamId")
                         .HasColumnType("int");
 
-                    b.HasKey("QuestId", "TeamId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestId");
 
                     b.HasIndex("TeamId");
 
@@ -159,7 +162,7 @@ namespace KarmaLympics.Migrations
                     b.HasOne("KarmaLympics.Models.Quest", "Quest")
                         .WithMany("Challenges")
                         .HasForeignKey("QuestId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Quest");
@@ -170,7 +173,7 @@ namespace KarmaLympics.Migrations
                     b.HasOne("KarmaLympics.Models.Event", "Event")
                         .WithOne("Quest")
                         .HasForeignKey("KarmaLympics.Models.Quest", "EventId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Event");
@@ -181,18 +184,10 @@ namespace KarmaLympics.Migrations
                     b.HasOne("KarmaLympics.Models.Event", "Event")
                         .WithMany("Teams")
                         .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("KarmaLympics.Models.Quest", "Quest")
-                        .WithMany("Teams")
-                        .HasForeignKey("QuestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Event");
-
-                    b.Navigation("Quest");
                 });
 
             modelBuilder.Entity("KarmaLympics.Models.TeamQuest", b =>
@@ -200,13 +195,13 @@ namespace KarmaLympics.Migrations
                     b.HasOne("KarmaLympics.Models.Quest", "Quest")
                         .WithMany("TeamQuests")
                         .HasForeignKey("QuestId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("KarmaLympics.Models.Team", "Team")
                         .WithMany("TeamQuests")
                         .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Quest");
@@ -216,8 +211,7 @@ namespace KarmaLympics.Migrations
 
             modelBuilder.Entity("KarmaLympics.Models.Event", b =>
                 {
-                    b.Navigation("Quest")
-                        .IsRequired();
+                    b.Navigation("Quest");
 
                     b.Navigation("Teams");
                 });
@@ -227,8 +221,6 @@ namespace KarmaLympics.Migrations
                     b.Navigation("Challenges");
 
                     b.Navigation("TeamQuests");
-
-                    b.Navigation("Teams");
                 });
 
             modelBuilder.Entity("KarmaLympics.Models.Team", b =>

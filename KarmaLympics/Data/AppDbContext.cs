@@ -14,56 +14,18 @@ namespace KarmaLympics.Data {
         public DbSet<TeamQuest> TeamQuests { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
-            // Configure relationships and constraints here
-
-            modelBuilder.Entity<Event>()
-                .HasOne(e => e.Quest)
-                .WithOne(q => q.Event)
-                .HasForeignKey<Quest>(q => q.EventId)
-                .OnDelete(DeleteBehavior.Restrict); // or DeleteBehavior.Cascade if needed
-
-            modelBuilder.Entity<Event>()
-                .HasMany(e => e.Teams)
-                .WithOne(t => t.Event)
-                .HasForeignKey(t => t.EventId)
-                .OnDelete(DeleteBehavior.Restrict); // or DeleteBehavior.Cascade if needed
-
-            modelBuilder.Entity<Quest>()
-                .HasMany(q => q.Challenges)
-                .WithOne(c => c.Quest)
-                .HasForeignKey(c => c.QuestId)
-                .OnDelete(DeleteBehavior.Restrict); // or DeleteBehavior.Cascade if needed
-
-            modelBuilder.Entity<Quest>()
-                .HasMany(q => q.TeamQuests)
-                .WithOne(tq => tq.Quest)
-                .HasForeignKey(tq => tq.QuestId)
-                .OnDelete(DeleteBehavior.Restrict); // or DeleteBehavior.Cascade if needed
-
-            modelBuilder.Entity<Challenge>()
-                .HasOne(c => c.Quest)
-                .WithMany(q => q.Challenges)
-                .HasForeignKey(c => c.QuestId)
-                .OnDelete(DeleteBehavior.Restrict); // or DeleteBehavior.Cascade if needed
 
             modelBuilder.Entity<TeamQuest>()
-                .HasKey(tq => new { tq.QuestId, tq.TeamId });
+            .HasOne(tq => tq.Quest)
+            .WithMany(q => q.TeamQuests)
+            .HasForeignKey(tq => tq.QuestId)
+            .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<TeamQuest>()
-                .HasOne(tq => tq.Quest)
-                .WithMany(q => q.TeamQuests)
-                .HasForeignKey(tq => tq.QuestId)
-                .OnDelete(DeleteBehavior.Restrict); // or DeleteBehavior.Cascade if needed
-
-            modelBuilder.Entity<TeamQuest>()
-                .HasOne(tq => tq.Team)
-                .WithMany(t => t.TeamQuests)
-                .HasForeignKey(tq => tq.TeamId)
-                .OnDelete(DeleteBehavior.Restrict); // or DeleteBehavior.Cascade if needed
-
-            // Add other configurations as needed
-
-            base.OnModelCreating(modelBuilder);
+            .HasOne(tq => tq.Team)
+            .WithMany(t => t.TeamQuests)
+            .HasForeignKey(tq => tq.TeamId)
+            .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

@@ -11,7 +11,7 @@
 
         //Navigation Property
 
-        public Quest Quest { get; set; }
+        public Quest? Quest { get; set; } = null;
 
     }
 }

@@ -44,7 +44,28 @@ namespace KarmaLympics.Migrations
                         column: x => x.EventId,
                         principalTable: "Events",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Teams",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TeamName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TeamUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EventId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Teams", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Teams_Events_EventId",
+                        column: x => x.EventId,
+                        principalTable: "Events",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -67,34 +88,6 @@ namespace KarmaLympics.Migrations
                         column: x => x.QuestId,
                         principalTable: "Quests",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Teams",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TeamName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TeamUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EventId = table.Column<int>(type: "int", nullable: false),
-                    QuestId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Teams", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Teams_Events_EventId",
-                        column: x => x.EventId,
-                        principalTable: "Events",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Teams_Quests_QuestId",
-                        column: x => x.QuestId,
-                        principalTable: "Quests",
-                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -102,24 +95,25 @@ namespace KarmaLympics.Migrations
                 name: "TeamQuests",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     QuestId = table.Column<int>(type: "int", nullable: false),
                     TeamId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TeamQuests", x => new { x.QuestId, x.TeamId });
+                    table.PrimaryKey("PK_TeamQuests", x => x.Id);
                     table.ForeignKey(
                         name: "FK_TeamQuests_Quests_QuestId",
                         column: x => x.QuestId,
                         principalTable: "Quests",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_TeamQuests_Teams_TeamId",
                         column: x => x.TeamId,
                         principalTable: "Teams",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -134,6 +128,11 @@ namespace KarmaLympics.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_TeamQuests_QuestId",
+                table: "TeamQuests",
+                column: "QuestId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TeamQuests_TeamId",
                 table: "TeamQuests",
                 column: "TeamId");
@@ -142,11 +141,6 @@ namespace KarmaLympics.Migrations
                 name: "IX_Teams_EventId",
                 table: "Teams",
                 column: "EventId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Teams_QuestId",
-                table: "Teams",
-                column: "QuestId");
         }
 
         /// <inheritdoc />
@@ -159,10 +153,10 @@ namespace KarmaLympics.Migrations
                 name: "TeamQuests");
 
             migrationBuilder.DropTable(
-                name: "Teams");
+                name: "Quests");
 
             migrationBuilder.DropTable(
-                name: "Quests");
+                name: "Teams");
 
             migrationBuilder.DropTable(
                 name: "Events");
