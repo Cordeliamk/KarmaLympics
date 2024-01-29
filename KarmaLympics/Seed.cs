@@ -17,12 +17,15 @@ namespace KarmaLympics {
                 _dataContext.Database.Migrate();
                 _logger.LogInformation("Database migration succeeded.");
 
-                if (!_dataContext.Events.Any()) {
+                if (_dataContext.Events.Any()) {
+                    _dataContext.RemoveRange(_dataContext.Events);
+                    _dataContext.SaveChanges();
+                    _logger.LogInformation("Existing data removed.");
                     var eventList = new List<Event>
                     {
                         new Event
                         {
-                            EventName = "Test Event",
+                            EventName = "KarmaLympics2024",
                             HostName = "Test Host",
                             HostMail = "test@example.com",
                             Rules = "Test Rules",
