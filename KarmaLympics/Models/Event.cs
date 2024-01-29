@@ -10,7 +10,7 @@
 
         //Navigaton Property
 
-        public ICollection<Team> Teams { get; set; }
+        public ICollection<Team>? Teams { get; set; } = null;
         public Quest? Quest { get; set; } = null;
     }
 }
