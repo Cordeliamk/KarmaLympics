@@ -26,9 +26,9 @@ namespace KarmaLympics {
                         new Event
                         {
                             EventName = "KarmaLympics2024",
-                            HostName = "Test Host",
-                            HostMail = "test@example.com",
-                            Rules = "Test Rules",
+                            HostName = "Cordelia",
+                            HostMail = "Cordelia@Karmalympics.com",
+                            Rules = "The first rule of Karmalympics, is that you never talk about Karmalympics",
                             Teams = new List<Team>
                             {
                                 new Team
