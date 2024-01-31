@@ -17,5 +17,14 @@ namespace KarmaLympics.Repository {
 
             return _context.Events.ToList();
         }
+
+        public Event GetEvent(int eventId) {
+
+            return _context.Events.First(e => e.Id == eventId);
+        }
+        public bool EventExists(int eventId) {
+
+            return _context.Events.Any(e => e.Id == eventId);
+        }
     }
 }

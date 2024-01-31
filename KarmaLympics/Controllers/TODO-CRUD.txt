@@ -1,4 +1,9 @@
-﻿Event:
+﻿Create = Post
+Read = Get
+Update = Put/Patch
+Delete = Delete
+
+Event:
 
 Create an event
 -Name of event

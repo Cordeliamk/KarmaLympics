@@ -27,6 +27,7 @@ namespace KarmaLympics.Data {
             .HasForeignKey(tq => tq.TeamId)
             .OnDelete(DeleteBehavior.NoAction);
         }
+
     }
 }
 
