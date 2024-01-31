@@ -1,0 +1,28 @@
+﻿Event:
+
+Create an event
+-Name of event
+-Host names
+-The creators email
+
+Get an event
+----------------------------
+
+Challenge: 
+
+Create Challenge
+-Name of Challenge
+-Max points for completion
+
+Get Challenges
+Post Challenges
+---------------------------
+
+Teams:
+
+Create a team
+-Teamname
+
+Get Teams
+
+--------------------------
