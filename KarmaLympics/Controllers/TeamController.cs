@@ -34,6 +34,8 @@ namespace KarmaLympics.Controllers {
 
         [HttpGet("{teamId}")]
         [ProducesResponseType(200, Type = typeof(Team))]
+        [ProducesResponseType(400)]
+
         public IActionResult GetTeam(int teamId) {
 
             if (!_teamRepository.TeamExists(teamId))

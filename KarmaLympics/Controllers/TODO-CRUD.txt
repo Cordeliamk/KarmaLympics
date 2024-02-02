@@ -10,7 +10,7 @@ Create an event
 -Host names
 -The creators email
 
-Get an event
+**Get an Events/Evnt
 ----------------------------
 
 Challenge: 
@@ -28,6 +28,6 @@ Teams:
 Create a team
 -Teamname
 
-Get Teams
+**Get Teams/Team
 
 --------------------------

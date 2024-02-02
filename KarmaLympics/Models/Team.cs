@@ -10,7 +10,6 @@
         // Navigation Property
 
         public Event? Event { get; set; }
-        //public Quest Quest { get; set; }
         public ICollection<TeamQuest>? TeamQuests { get; set; } = null;
     }
 }

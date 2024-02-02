@@ -9,7 +9,6 @@
 
         //Navigation Property
 
-        //public ICollection<Team> Teams { get; set; }
         public Event? Event { get; set; } = null;
         public ICollection<TeamQuest>? TeamQuests { get; set; } = null;
         public ICollection<Challenge>? Challenges { get; set; } = null;

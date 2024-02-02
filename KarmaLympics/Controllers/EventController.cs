@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using KarmaLympics.Dto;
 using KarmaLympics.Interfaces;
 using KarmaLympics.Models;
