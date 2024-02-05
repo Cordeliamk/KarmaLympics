@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KarmaLympics {
     public class Seed {
+
         private readonly AppDbContext _dataContext;
         private readonly ILogger<Seed> _logger;
 
@@ -13,22 +14,23 @@ namespace KarmaLympics {
         }
 
         public void SeedDataContext() {
+
             try {
                 _dataContext.Database.Migrate();
                 _logger.LogInformation("Database migration succeeded.");
 
-                if (_dataContext.Events.Any()) {
-                    _dataContext.RemoveRange(_dataContext.Events);
-                    _dataContext.SaveChanges();
-                    _logger.LogInformation("Existing data removed.");
-                    var eventList = new List<Event>
-                    {
+                _logger.LogInformation("Removing existing data...");
+                _dataContext.RemoveRange(_dataContext.Events);
+                _dataContext.SaveChanges();
+                _logger.LogInformation("Existing data removed.");
+                var eventList = new List<Event>
+                {
                         new Event
                         {
-                            EventName = "KarmaLympics2024",
+                            EventName = "KarmaLympics2017",
                             HostName = "Cordelia",
                             HostMail = "Cordelia@Karmalympics.com",
-                            Rules = "The first rule of Karmalympics, is that you never talk about Karmalympics",
+                            EventDescription = "The first rule of Karmalympics, is that you never talk about Karmalympics",
                             Teams = new List<Team>
                             {
                                 new Team
@@ -67,13 +69,11 @@ namespace KarmaLympics {
                         }
                     };
 
-                    _dataContext.Events.AddRange(eventList);
-                    _dataContext.SaveChanges();
+                _dataContext.Events.AddRange(eventList);
+                _dataContext.SaveChanges();
 
-                    _logger.LogInformation("Seeding completed successfully.");
-                } else {
-                    _logger.LogInformation("Database already seeded. Skipping seeding process.");
-                }
+                _logger.LogInformation("Seeding completed successfully.");
+
             }
             catch (Exception ex) {
                 _logger.LogError(ex, "An error occurred during seeding.");

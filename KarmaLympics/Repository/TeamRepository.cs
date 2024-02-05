@@ -1,4 +1,5 @@
 ﻿using KarmaLympics.Data;
+using KarmaLympics.Dto;
 using KarmaLympics.Interfaces;
 using KarmaLympics.Models;
 
@@ -25,6 +26,26 @@ namespace KarmaLympics.Repository {
         public bool TeamExists(int teamId) {
 
             return _context.Teams.Any(t => t.Id == teamId);
+        }
+
+        public bool CreateTeam(TeamDto teamDto) {
+
+            var team = new Team() {
+
+                TeamName = teamDto.TeamName,
+                EventId = teamDto.EventId,
+
+            };
+
+            _context.Teams.Add(team);
+            Save();
+            return true;
+        }
+
+        public bool Save() {
+
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
         }
     }
 }

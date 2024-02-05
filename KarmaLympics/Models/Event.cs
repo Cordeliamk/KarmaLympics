@@ -2,11 +2,11 @@
 
     public class Event {
 
-        public int Id { get; set; }
+        public int Id { get; set; } //PK
         public string EventName { get; set; } = string.Empty;
         public string HostName { get; set; } = string.Empty;
         public string HostMail { get; set; } = string.Empty;
-        public string Rules { get; set; } = string.Empty;
+        public string EventDescription { get; set; } = string.Empty;
 
         //Navigaton Property
 

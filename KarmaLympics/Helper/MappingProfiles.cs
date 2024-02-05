@@ -9,7 +9,9 @@ namespace KarmaLympics.Helper {
         public MappingProfiles() {
 
             CreateMap<Event, EventDto>();
+            CreateMap<EventDto, Event>();
             CreateMap<Team, TeamDto>();
+            CreateMap<Challenge, ChallengeDto>();
 
         }
     }

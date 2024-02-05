@@ -1,4 +1,5 @@
-﻿using KarmaLympics.Models;
+﻿using KarmaLympics.Dto;
+using KarmaLympics.Models;
 
 namespace KarmaLympics.Interfaces {
 
@@ -7,5 +8,7 @@ namespace KarmaLympics.Interfaces {
         ICollection<Event> GetEvents();
         public Event GetEvent(int eventId);
         public bool EventExists(int eventId);
+        public bool CreateEvent(EventDto eventDto);
+        public bool Save();
     }
 }

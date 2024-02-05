@@ -48,5 +48,16 @@ namespace KarmaLympics.Controllers {
 
             return Ok(team);
         }
+
+        [HttpPost]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+
+        public IActionResult CreateTeam(TeamDto teamDto) {
+
+            _teamRepository.CreateTeam(teamDto);
+
+            return Ok("Created succesfully");
+        }
     }
 }

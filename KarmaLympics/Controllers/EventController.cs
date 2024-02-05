@@ -49,5 +49,18 @@ namespace KarmaLympics.Controllers {
 
             return Ok(singleEvent);
         }
+
+        [HttpPost]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+
+        public IActionResult CreateEvent(EventDto eventDto) {
+
+            _eventRepository.CreateEvent(eventDto);
+
+
+
+            return Ok("Created succesfully");
+        }
     }
 }
